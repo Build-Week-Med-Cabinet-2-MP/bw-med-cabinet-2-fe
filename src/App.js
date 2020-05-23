@@ -1,16 +1,18 @@
 import React from "react";
 import styled from "styled-components";
 import { connect } from "react-redux";
+import { Switch, Route } from "react-router-dom";
+import Login from "./components/Login";
 
 const StyledApp = styled.div``;
 
 function App(props) {
   return (
     <StyledApp className="App">
-      <h1>Med Cabinet</h1>
-      <p>
-        {props.name}, {props.age} years old
-      </p>
+      <Switch>
+        <Route exact path="/" component={Login} />
+        <Route path="/login" component={Login} />
+      </Switch>
     </StyledApp>
   );
 }
