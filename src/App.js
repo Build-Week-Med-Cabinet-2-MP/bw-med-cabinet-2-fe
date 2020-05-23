@@ -1,26 +1,25 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import styled from "styled-components";
+import { connect } from "react-redux";
 
-function App() {
+const StyledApp = styled.div``;
+
+function App(props) {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <StyledApp className="App">
+      <h1>Med Cabinet</h1>
+      <p>
+        {props.name}, {props.age} years old
+      </p>
+    </StyledApp>
   );
 }
 
-export default App;
+const mapStateToProps = (state) => {
+  return {
+    name: state.test.name,
+    age: state.test.age,
+  };
+};
+
+export default connect(mapStateToProps, {})(App);
