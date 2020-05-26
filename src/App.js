@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useState, useEffect, useParams } from "react";
 import styled from "styled-components";
 import { connect } from "react-redux";
 import { Switch, Route } from "react-router-dom";
 import Login from "./components/Login";
+import Signup from "./components/Signup";
 
 const StyledApp = styled.div``;
 
@@ -12,6 +13,8 @@ function App(props) {
       <Switch>
         <Route exact path="/" component={Login} />
         <Route path="/login" component={Login} />
+
+        <Route path="/signup" component={Signup} />
       </Switch>
     </StyledApp>
   );
