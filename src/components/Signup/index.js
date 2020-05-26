@@ -1,25 +1,24 @@
 import React, { useState, useEffect, useParams } from "react";
 import styled from "styled-components";
+import { Route, Link } from "react-router-dom";
 import formSchema from "./formSchema";
 import * as yup from "yup";
 import axios from "axios";
-import { Link } from "react-router-dom";
 
-const initialLoginFormValues = {
+const initialSignupFormValues = {
+  name: "",
+  password: "",
+  email: "",
+};
+
+const initialSignupFormErrors = {
   name: "",
   password: "",
 };
 
-const initialLoginFormErrors = {
-  name: "",
-  password: "",
-};
-
-const Login = (props) => {
-  const { disabled, errors } = props;
-
-  const [formValues, setFormValues] = useState(initialLoginFormValues);
-  const [formErrors, setFormErrors] = useState(initialLoginFormErrors);
+const Signup = (props) => {
+  const [formValues, setFormValues] = useState(initialSignupFormValues);
+  const [formErrors, setFormErrors] = useState(initialSignupFormErrors);
 
   const onInputChange = (event) => {
     const name = event.target.name;
@@ -44,9 +43,9 @@ const Login = (props) => {
     setFormValues({ ...formValues, [name]: value });
   };
 
-  const postLoginData = (loginData) => {
+  const postLoginData = (signupData) => {
     axios
-      .post("", loginData)
+      .post("", signupData)
       .then((res) => {
         console.log(res.data);
       })
@@ -54,30 +53,32 @@ const Login = (props) => {
         console.error("Server Error", error);
       })
       .finally(() => {
-        setFormValues(initialLoginFormValues);
-        console.log(loginData);
+        setFormValues(initialSignupFormValues);
+        console.log(signupData);
       });
-  };
 
-  const onSubmit = (event) => {
-    event.preventDefault();
-    const userLogin = { ...formValues };
-    postLoginData(userLogin);
+    const onSubmit = (event) => {
+      event.preventDefault();
+      const userLogin = { ...formValues };
+      postLoginData(userLogin);
+    };
   };
 
   return (
     <div>
-      <StyledLogin>
-        <Link to="/signup">
-          <h1>Signup</h1>
-        </Link>
-        <Link to="/">
-          <h1>Home</h1>
-        </Link>
-        <Link to="/login">
-          <h1>Login</h1>
-        </Link>
-      </StyledLogin>
+      <StyledSignup>
+        <Route path="/signup">
+          <Link to="/signup">
+            <h1>Signup</h1>
+          </Link>
+          <Link to="/">
+            <h1>Home</h1>
+          </Link>
+          <Link to="/login">
+            <h1>Login</h1>
+          </Link>
+        </Route>
+      </StyledSignup>
 
       <div className="errors">
         <div>{formErrors.name}</div>
@@ -98,6 +99,16 @@ const Login = (props) => {
         </label>
 
         <label>
+          Email:
+          <input
+            type="text"
+            placeholder="Enter Your Email"
+            minLength="6"
+            name="email"
+          />
+        </label>
+
+        <label>
           Password:
           <input
             type="text"
@@ -108,16 +119,15 @@ const Login = (props) => {
             onChange={onInputChange}
           />
         </label>
-
-        <button className="login">Login</button>
+        <button className="signup">Signup</button>
       </StyledInput>
     </div>
   );
 };
 
-export default Login;
+export default Signup;
 
-const StyledLogin = styled.div`
+const StyledSignup = styled.div`
   background: #355a20;
   padding: 1rem;
   display: flex;
@@ -127,7 +137,7 @@ const StyledLogin = styled.div`
 
 const StyledInput = styled.div`
   background: #eaf5df;
-  padding: 0.5rem;
+  padding: 1rem;
   display: flex;
   flex-direction: column;
   text-align: center;
