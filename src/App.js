@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import { Switch, Route } from "react-router-dom";
 import Login from "./components/Login";
 import Popup from "./components/Popup";
+import PreferenceForm from "./components/PreferenceForm"
 
 const StyledApp = styled.div``;
 
@@ -15,6 +16,7 @@ function App(props) {
       <Switch>
         <Route exact path="/" component={Login} />
         <Route path="/login" component={Login} />
+        <Route path="/preferences" component={PreferenceForm} />
       </Switch>
     </StyledApp>
   );
