@@ -4,9 +4,12 @@ import { connect } from "react-redux";
 import { Switch, Route } from "react-router-dom";
 import Login from "./components/Login";
 import Popup from "./components/Popup";
-import PreferenceForm from "./components/PreferenceForm"
+import PreferenceForm from "./components/PreferenceForm";
+import Recommendations from "./components/Recommendations";
 
-const StyledApp = styled.div``;
+const StyledApp = styled.div`
+  padding: 150px;
+`;
 
 function App(props) {
   const { isPopped } = props;
@@ -17,6 +20,7 @@ function App(props) {
         <Route exact path="/" component={Login} />
         <Route path="/login" component={Login} />
         <Route path="/preferences" component={PreferenceForm} />
+        <Route path="/recommended" component={Recommendations} />
       </Switch>
     </StyledApp>
   );
