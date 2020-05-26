@@ -1,4 +1,5 @@
 import { combineReducers } from "redux";
-import { reducer as test } from "./test.js";
+import { reducer as strains } from "./strainsReducer";
+import { reducer as popup } from "./popupReducer";
 
-export default combineReducers({test});
+export default combineReducers({ strains, popup });

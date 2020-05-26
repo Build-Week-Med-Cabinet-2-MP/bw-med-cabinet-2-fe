@@ -3,12 +3,15 @@ import styled from "styled-components";
 import { connect } from "react-redux";
 import { Switch, Route } from "react-router-dom";
 import Login from "./components/Login";
+import Popup from "./components/Popup";
 
 const StyledApp = styled.div``;
 
 function App(props) {
+  const { isPopped } = props;
   return (
     <StyledApp className="App">
+      {isPopped && <Popup />}
       <Switch>
         <Route exact path="/" component={Login} />
         <Route path="/login" component={Login} />
@@ -19,8 +22,7 @@ function App(props) {
 
 const mapStateToProps = (state) => {
   return {
-    name: state.test.name,
-    age: state.test.age,
+    isPopped: state.popup.isPopped,
   };
 };
 
