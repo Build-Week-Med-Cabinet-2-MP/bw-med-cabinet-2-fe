@@ -1,0 +1,4 @@
+const initialLoginFormValues = {
+  name: "",
+  password: "",
+};

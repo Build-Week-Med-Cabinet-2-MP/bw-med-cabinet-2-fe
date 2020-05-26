@@ -1,8 +1,8 @@
 import React from "react";
 import styled from "styled-components";
-import { Link } from "react-router-dom";
+import { Route, Link } from "react-router-dom";
 
-const StyledLogin = styled.div`
+const StyledSignup = styled.div`
   background: #355a20;
   padding: 1rem;
   display: flex;
@@ -18,20 +18,22 @@ const StyledInput = styled.div`
   text-align: center;
 `;
 
-const Login = (props) => {
+const Signup = (props) => {
   return (
     <div>
-      <StyledLogin>
-        <Link to="/signup">
-          <h1>Signup</h1>
-        </Link>
-        <Link to="/">
-          <h1>Home</h1>
-        </Link>
-        <Link to="/login">
-          <h1>Login</h1>
-        </Link>
-      </StyledLogin>
+      <StyledSignup>
+        <Route path="/signup">
+          <Link to="/signup">
+            <h1>Signup</h1>
+          </Link>
+          <Link to="/">
+            <h1>Home</h1>
+          </Link>
+          <Link to="/login">
+            <h1>Login</h1>
+          </Link>
+        </Route>
+      </StyledSignup>
 
       <StyledInput>
         <label>
@@ -41,6 +43,16 @@ const Login = (props) => {
             placeholder="Enter Your Username"
             minLength="8"
             name="name"
+          />
+        </label>
+
+        <label>
+          Email:
+          <input
+            type="text"
+            placeholder="Enter Your Email"
+            minLength="6"
+            name="email"
           />
         </label>
 
@@ -58,4 +70,4 @@ const Login = (props) => {
   );
 };
 
-export default Login;
+export default Signup;
