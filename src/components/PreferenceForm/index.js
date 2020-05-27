@@ -1,30 +1,18 @@
 import React from "react";
 import { connect } from "react-redux";
-import { preferences } from "../../store/actions";
+import { signup } from "../../store/actions";
 import Location from "./Location";
 import Flavor from "./Flavor";
 import Effect from "./Effect";
 import { flavors, effects } from "../../data";
 
 class PreferenceForm extends React.Component {
-  componentDidMount() {}
-  componentDidUpdate(prevProps, prevState) {
-    if (prevProps.permission !== this.props.permission) {
-      if (this.props.permission) {
-        //User has just accepted location permission
-      } else {
-        //User has revoked location permissions
-      }
-    }
-  }
-  componentWillUnmount() {}
-
   submitHandler = (e) => {
     e.preventDefault();
-    const { permission, location, effects, flavors } = this.props;
-    const prefs = { permission, location, effects, flavors };
-    this.props.submitPrefs(prefs);
-    this.props.history.push("/recommended");
+    const { effects, flavors } = this.props;
+    const userInfo = { effects, flavors };
+    this.props.signup(userInfo);
+    this.props.history.push("/login");
   };
 
   render() {
@@ -87,7 +75,7 @@ class PreferenceForm extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-  const p = state.preferences;
+  const p = state.signup;
   return {
     location: p.location,
     permission: p.locationAccessAllowed,
@@ -98,8 +86,8 @@ const mapStateToProps = (state) => {
 };
 
 export default connect(mapStateToProps, {
-  toggleLocationPermission: preferences.toggleLocationPermission,
-  toggleFlavor: preferences.toggleFlavor,
-  toggleEffect: preferences.toggleEffect,
-  submitPrefs: preferences.submitPrefs,
+  toggleLocationPermission: signup.toggleLocationPermission,
+  toggleFlavor: signup.toggleFlavor,
+  toggleEffect: signup.toggleEffect,
+  signup: signup.signup,
 })(PreferenceForm);

@@ -1,12 +1,12 @@
-import { preferences } from "../actions";
+import { signup } from "../actions";
 const {
   TOGGLE_LOCATION_PERMISSION,
   TOGGLE_FLAVOR,
   TOGGLE_EFFECT,
-  SUBMIT_PREFS_START,
-  SUBMIT_PREFS_SUCCESS,
-  SUBMIT_PREFS_FAILURE,
-} = preferences;
+  SIGNUP_START,
+  SIGNUP_SUCCESS,
+  SIGNUP_FAILURE,
+} = signup;
 const initialState = {
   errors: {
     flavors: false,
@@ -51,15 +51,15 @@ export const reducer = (state = initialState, action) => {
           ? state.effects
           : [...state.effects, action.payload],
       };
-    case SUBMIT_PREFS_START:
+    case SIGNUP_START:
       return {
         ...state,
       };
-    case SUBMIT_PREFS_SUCCESS:
+    case SIGNUP_SUCCESS:
       return {
         ...state,
       };
-    case SUBMIT_PREFS_FAILURE:
+    case SIGNUP_FAILURE:
       return {
         ...state,
       };

@@ -23,18 +23,18 @@ export const toggleEffect = (e) => (dispatch) => {
   dispatch({ type: TOGGLE_EFFECT, payload: name });
 };
 
-export const SUBMIT_PREFS_START = "SUBMIT_PREFS_START";
-export const SUBMIT_PREFS_SUCCESS = "SUBMIT_PREFS_SUCCESS";
-export const SUBMIT_PREFS_FAILURE = "SUBMIT_PREFS_FAILURE";
-export const submitPrefs = (prefs) => (dispatch) => {
-  dispatch({ type: SUBMIT_PREFS_START });
+export const SIGNUP_START = "SIGNUP_START";
+export const SIGNUP_SUCCESS = "SIGNUP_SUCCESS";
+export const SIGNUP_FAILURE = "SIGNUP_FAILURE";
+export const signup = (userInfo) => (dispatch) => {
+  dispatch({ type: SIGNUP_START });
   //Here, we update data in database
   // axiosWithAuth()
-  //   .post(`/api/prefs`, prefs)
+  //   .post(`/api/register`, userInfo)
   //   .then((res) => {
-      dispatch({ type: SUBMIT_PREFS_SUCCESS });
+      dispatch({ type: SIGNUP_SUCCESS });
     // })
     // .catch((err) => {
-    //   dispatch({ type: SUBMIT_PREFS_FAILURE });
+    //   dispatch({ type: SIGNUP_FAILURE });
     // });
 };

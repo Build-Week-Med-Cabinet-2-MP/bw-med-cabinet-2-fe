@@ -1,6 +1,0 @@
-[[redirects]]
-  from = "/signup"
-  to = "/signup"
-[[redirects]]
-  from = "/*"
-  to = "/"
