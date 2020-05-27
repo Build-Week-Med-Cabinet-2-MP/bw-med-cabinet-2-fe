@@ -7,6 +7,7 @@ import Signup from "./components/Signup";
 import Popup from "./components/Popup";
 import PreferenceForm from "./components/PreferenceForm";
 import Recommendations from "./components/Recommendations";
+import StrainList from "./components/StrainList/";
 
 const StyledApp = styled.div`
   padding: 150px;
@@ -23,6 +24,7 @@ function App(props) {
         <Route path="/signup" component={Signup} />
         <Route path="/preferences" component={PreferenceForm} />
         <Route path="/recommended" component={Recommendations} />
+        <Route path="/strains" component={StrainList} />
       </Switch>
     </StyledApp>
   );
