@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useParams } from "react";
 import styled from "styled-components";
-import { Route, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import formSchema from "./formSchema";
 import * as yup from "yup";
 import axios from "axios";
@@ -79,17 +79,15 @@ const Signup = (props) => {
     <form onSubmit={onSubmit}>
       <div>
         <StyledSignup>
-          <Route path="/signup">
-            <Link to="/signup">
-              <h1>Signup</h1>
-            </Link>
-            <Link to="/">
-              <h1>Home</h1>
-            </Link>
-            <Link to="/login">
-              <h1>Login</h1>
-            </Link>
-          </Route>
+          <Link to="/signup">
+            <h1>Signup</h1>
+          </Link>
+          <Link to="/">
+            <h1>Home</h1>
+          </Link>
+          <Link to="/login">
+            <h1>Login</h1>
+          </Link>
         </StyledSignup>
 
         <div className="errors">
