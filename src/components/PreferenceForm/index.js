@@ -5,7 +5,6 @@ import Location from "./Location";
 import Flavor from "./Flavor";
 import Effect from "./Effect";
 import { flavors, effects } from "../../data";
-import { submitPrefs } from "../../store/actions/preferencesActions";
 
 class PreferenceForm extends React.Component {
   componentDidMount() {}

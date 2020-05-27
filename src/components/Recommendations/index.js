@@ -6,7 +6,7 @@ const Recommendations = (props) => {
   const { test, isFetching, fetchRec } = props;
   useEffect(() => {
     fetchRec();
-  }, []);
+  }, [fetchRec]);
   return (
     <div>
       {isFetching 

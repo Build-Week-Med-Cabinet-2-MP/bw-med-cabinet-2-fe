@@ -10,6 +10,8 @@ export const reducer = (state = initialState, action) => {
       return { ...state, isFetching: true };
     case FETCH_REC_SUCCESS:
       return { ...state, isFetching: false };
+    case FETCH_REC_FAILURE:
+      return { ...state, isFetching: false };
     default:
       return state;
   }
