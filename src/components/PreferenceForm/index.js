@@ -9,8 +9,11 @@ import { flavors, effects } from "../../data";
 class PreferenceForm extends React.Component {
   submitHandler = (e) => {
     e.preventDefault();
-    const { effects, flavors } = this.props;
-    const userInfo = { effects, flavors };
+    const { effects, flavors, signupInfo } = this.props;
+    const userInfo = { effects, flavors, signupInfo };
+    /**
+     * FIGURE OUT HOW HE WANTS THE DATA STRUCTURED FOR THE POST
+     */
     this.props.signup(userInfo);
     this.props.history.push("/login");
   };
@@ -77,6 +80,7 @@ class PreferenceForm extends React.Component {
 const mapStateToProps = (state) => {
   const p = state.signup;
   return {
+    signupInfo: p.signupInfo,
     location: p.location,
     permission: p.locationAccessAllowed,
     flavors: p.flavors,
