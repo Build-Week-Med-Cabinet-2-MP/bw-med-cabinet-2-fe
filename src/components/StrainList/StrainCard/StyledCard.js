@@ -1,8 +1,6 @@
 import styled from "styled-components";
 
-const StyledCard = styled.div.attrs((props) => ({
-  className: props.className,
-}))`
+const StyledCard = styled.div`
   & .name {
     background: #355a20;
     padding: 0.5rem;
@@ -28,11 +26,13 @@ const StyledCard = styled.div.attrs((props) => ({
   color: #eaf5df;
   background: #93cb56;
   border: 5px solid black;
-  margin: 1rem;
+  margin: 1%;
   max-width: 31%;
   display: flex;
-  float: left;
   flex-flow: column nowrap;
+  & > * {
+    width: 100%;
+  }
 
   /* height: 60vh; */
 `;
