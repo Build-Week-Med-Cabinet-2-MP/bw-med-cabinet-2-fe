@@ -1,4 +1,3 @@
-import { axiosWithAuth } from "../../utils";
 export const TOGGLE_LOCATION_PERMISSION = "TOGGLE_LOCATION_PERMISSION";
 export const toggleLocationPermission = (e) => (dispatch) => {
   //Initialize to null
