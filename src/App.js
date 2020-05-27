@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useParams } from "react";
+import React from "react";
 import styled from "styled-components";
 import { connect } from "react-redux";
 import { Switch, Route } from "react-router-dom";
