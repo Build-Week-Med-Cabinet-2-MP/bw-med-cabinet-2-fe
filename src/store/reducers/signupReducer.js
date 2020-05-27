@@ -1,16 +1,22 @@
 import { signup } from "../actions";
 const {
-  TOGGLE_LOCATION_PERMISSION,
-  TOGGLE_FLAVOR,
-  TOGGLE_EFFECT,
   SIGNUP_START,
   SIGNUP_SUCCESS,
   SIGNUP_FAILURE,
+  STORE_SIGNUP_INFO,
+  TOGGLE_LOCATION_PERMISSION,
+  TOGGLE_FLAVOR,
+  TOGGLE_EFFECT,
 } = signup;
 const initialState = {
   errors: {
     flavors: false,
     effects: false,
+  },
+  signupInfo: {
+    name: "",
+    password: "",
+    email: "",
   },
   flavors: [],
   effects: [],
@@ -19,6 +25,23 @@ const initialState = {
 };
 export const reducer = (state = initialState, action) => {
   switch (action.type) {
+    case SIGNUP_START:
+      return {
+        ...state,
+      };
+    case SIGNUP_SUCCESS:
+      return {
+        ...state,
+      };
+    case SIGNUP_FAILURE:
+      return {
+        ...state,
+      };
+    case STORE_SIGNUP_INFO:
+      return {
+        ...state,
+        signupInfo: action.payload,
+      };
     case TOGGLE_LOCATION_PERMISSION:
       return {
         ...state,
@@ -50,18 +73,6 @@ export const reducer = (state = initialState, action) => {
           : state.effects.length === 3
           ? state.effects
           : [...state.effects, action.payload],
-      };
-    case SIGNUP_START:
-      return {
-        ...state,
-      };
-    case SIGNUP_SUCCESS:
-      return {
-        ...state,
-      };
-    case SIGNUP_FAILURE:
-      return {
-        ...state,
       };
     default:
       return state;

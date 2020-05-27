@@ -3,10 +3,10 @@ import styled from "styled-components";
 import { Link, useHistory } from "react-router-dom";
 import formSchema from "./formSchema";
 import * as yup from "yup";
-import { axiosWithAuth } from "../../utils";
 
 //Redux Stuff
-import { connect } from "react-redux"
+import { connect } from "react-redux";
+import { signup } from "../../store/actions";
 
 const initialSignupFormValues = {
   name: "",
@@ -51,23 +51,8 @@ const Signup = (props) => {
   };
 
   const postLoginData = (signupData) => {
-    axiosWithAuth()
-      .post(`/api/register`, signupData)
-      .then(() => {
-        // Store signup credentials to Redux
-        push("/login");
-      })
-      .catch((error) => {
-        console.error("Server Error", error);
-        setFormErrors({
-          ...formErrors,
-          name: "Unable to register your account. Please try again.",
-        });
-        setFormValues({
-          ...formValues,
-          password: "",
-        });
-      });
+    props.storeSignupInfo(signupData);
+    props.push("/preferences");
   };
 
   const onSubmit = (event) => {
@@ -149,7 +134,9 @@ const Signup = (props) => {
   );
 };
 
-export default Signup;
+export default connect(null, {
+  storeSignupInfo: signup.storeSignupInfo,
+})(Signup);
 
 const StyledSignup = styled.div`
   background: #355a20;
