@@ -16,9 +16,12 @@ const initialSignupFormErrors = {
   password: "",
 };
 
+const initialDisabled = true;
+
 const Signup = (props) => {
   const [formValues, setFormValues] = useState(initialSignupFormValues);
   const [formErrors, setFormErrors] = useState(initialSignupFormErrors);
+  const [disabled, setDisabled] = useState(initialDisabled);
 
   const onInputChange = (event) => {
     const name = event.target.name;
@@ -56,72 +59,86 @@ const Signup = (props) => {
         setFormValues(initialSignupFormValues);
         console.log(signupData);
       });
-
-    const onSubmit = (event) => {
-      event.preventDefault();
-      const userLogin = { ...formValues };
-      postLoginData(userLogin);
-    };
   };
 
+  const onSubmit = (event) => {
+    event.preventDefault();
+    const userLogin = { ...formValues };
+    postLoginData(userLogin);
+    console.log(formValues);
+  };
+
+  useEffect(() => {
+    formSchema.isValid(formValues).then((valid) => {
+      console.log(valid);
+      setDisabled(!valid);
+    });
+  }, [formValues]);
+
   return (
-    <div>
-      <StyledSignup>
-        <Route path="/signup">
-          <Link to="/signup">
-            <h1>Signup</h1>
-          </Link>
-          <Link to="/">
-            <h1>Home</h1>
-          </Link>
-          <Link to="/login">
-            <h1>Login</h1>
-          </Link>
-        </Route>
-      </StyledSignup>
+    <form onSubmit={onSubmit}>
+      <div>
+        <StyledSignup>
+          <Route path="/signup">
+            <Link to="/signup">
+              <h1>Signup</h1>
+            </Link>
+            <Link to="/">
+              <h1>Home</h1>
+            </Link>
+            <Link to="/login">
+              <h1>Login</h1>
+            </Link>
+          </Route>
+        </StyledSignup>
 
-      <div className="errors">
-        <div>{formErrors.name}</div>
-        <div>{formErrors.password}</div>
+        <div className="errors">
+          <div>{formErrors.name}</div>
+          <div>{formErrors.password}</div>
+        </div>
+
+        <StyledInput>
+          <label>
+            Username:
+            <input
+              type="text"
+              placeholder="Enter Your Username"
+              minLength="8"
+              name="name"
+              value={formValues.name}
+              onChange={onInputChange}
+            />
+          </label>
+
+          <label>
+            Email:
+            <input
+              type="text"
+              placeholder="Enter Your Email"
+              minLength="6"
+              name="email"
+              value={formValues.email}
+              onChange={onInputChange}
+            />
+          </label>
+
+          <label>
+            Password:
+            <input
+              type="text"
+              placeholder="Enter Your Password"
+              minLength="6"
+              name="password"
+              value={formValues.password}
+              onChange={onInputChange}
+            />
+          </label>
+          <button className="signup" disabled={disabled}>
+            Signup
+          </button>
+        </StyledInput>
       </div>
-
-      <StyledInput>
-        <label>
-          Username:
-          <input
-            type="text"
-            placeholder="Enter Your Username"
-            minLength="8"
-            name="name"
-            value={formValues.name}
-            onChange={onInputChange}
-          />
-        </label>
-
-        <label>
-          Email:
-          <input
-            type="text"
-            placeholder="Enter Your Email"
-            minLength="6"
-            name="email"
-          />
-        </label>
-
-        <label>
-          Password:
-          <input
-            type="text"
-            placeholder="Enter Your Password"
-            minLength="6"
-            name="password"
-            value={formValues.password}
-            onChange={onInputChange}
-          />
-        </label>
-        <button className="signup">Signup</button>
-      </StyledInput>
-    </div>
+    </form>
   );
 };
 

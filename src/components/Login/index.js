@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useParams } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import formSchema from "./formSchema";
 import * as yup from "yup";
@@ -15,11 +15,12 @@ const initialLoginFormErrors = {
   password: "",
 };
 
-const Login = (props) => {
-  const { disabled, errors } = props;
+const initialDisabled = true;
 
+const Login = (props) => {
   const [formValues, setFormValues] = useState(initialLoginFormValues);
   const [formErrors, setFormErrors] = useState(initialLoginFormErrors);
+  const [disabled, setDisabled] = useState(initialDisabled);
 
   const onInputChange = (event) => {
     const name = event.target.name;
@@ -65,53 +66,64 @@ const Login = (props) => {
     postLoginData(userLogin);
   };
 
+  useEffect(() => {
+    formSchema.isValid(formValues).then((valid) => {
+      console.log(valid);
+      setDisabled(!valid);
+    });
+  }, [formValues]);
+
   return (
-    <div>
-      <StyledLogin>
-        <Link to="/signup">
-          <h1>Signup</h1>
-        </Link>
-        <Link to="/">
-          <h1>Home</h1>
-        </Link>
-        <Link to="/login">
-          <h1>Login</h1>
-        </Link>
-      </StyledLogin>
+    <form onSubmit={onSubmit}>
+      <div>
+        <StyledLogin>
+          <Link to="/signup">
+            <h1>Signup</h1>
+          </Link>
+          <Link to="/">
+            <h1>Home</h1>
+          </Link>
+          <Link to="/login">
+            <h1>Login</h1>
+          </Link>
+        </StyledLogin>
 
-      <div className="errors">
-        <div>{formErrors.name}</div>
-        <div>{formErrors.password}</div>
+        <div className="errors">
+          <div>{formErrors.name}</div>
+          <div>{formErrors.password}</div>
+        </div>
+
+        <StyledInput>
+          <label>
+            Username:
+            <input
+              type="text"
+              placeholder="Enter Your Username"
+              minLength="8"
+              name="name"
+              value={formValues.name}
+              onChange={onInputChange}
+            />
+          </label>
+
+          <label>
+            Password:
+            <input
+              type="text"
+              placeholder="Enter Your Password"
+              minLength="6"
+              name="password"
+              value={formValues.password}
+              onChange={onInputChange}
+            />
+          </label>
+
+          <button className="login" disabled={disabled}>
+            Login
+          </button>
+        </StyledInput>
       </div>
-
-      <StyledInput>
-        <label>
-          Username:
-          <input
-            type="text"
-            placeholder="Enter Your Username"
-            minLength="8"
-            name="name"
-            value={formValues.name}
-            onChange={onInputChange}
-          />
-        </label>
-
-        <label>
-          Password:
-          <input
-            type="text"
-            placeholder="Enter Your Password"
-            minLength="6"
-            name="password"
-            value={formValues.password}
-            onChange={onInputChange}
-          />
-        </label>
-
-        <button className="login">Login</button>
-      </StyledInput>
-    </div>
+    </form>
   );
 };
 
