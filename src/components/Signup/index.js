@@ -1,9 +1,12 @@
 import React, { useState, useEffect, useParams } from "react";
 import styled from "styled-components";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import formSchema from "./formSchema";
 import * as yup from "yup";
-import axios from "axios";
+import { axiosWithAuth } from "../../utils";
+
+//Redux Stuff
+import { connect } from "react-redux"
 
 const initialSignupFormValues = {
   name: "",
@@ -19,6 +22,7 @@ const initialSignupFormErrors = {
 const initialDisabled = true;
 
 const Signup = (props) => {
+  const { push } = useHistory();
   const [formValues, setFormValues] = useState(initialSignupFormValues);
   const [formErrors, setFormErrors] = useState(initialSignupFormErrors);
   const [disabled, setDisabled] = useState(initialDisabled);
@@ -47,17 +51,22 @@ const Signup = (props) => {
   };
 
   const postLoginData = (signupData) => {
-    axios
-      .post("", signupData)
-      .then((res) => {
-        console.log(res.data);
+    axiosWithAuth()
+      .post(`/api/register`, signupData)
+      .then(() => {
+        // Store signup credentials to Redux
+        push("/login");
       })
       .catch((error) => {
         console.error("Server Error", error);
-      })
-      .finally(() => {
-        setFormValues(initialSignupFormValues);
-        console.log(signupData);
+        setFormErrors({
+          ...formErrors,
+          name: "Unable to register your account. Please try again.",
+        });
+        setFormValues({
+          ...formValues,
+          password: "",
+        });
       });
   };
 
