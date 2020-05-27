@@ -117,10 +117,11 @@ const Login = (props) => {
               onChange={onInputChange}
             />
           </label>
-
-          <button className="login" disabled={disabled}>
-            Login
-          </button>
+          <StyledButton>
+            <button className="login" disabled={disabled}>
+              Login
+            </button>
+          </StyledButton>
         </StyledInput>
       </div>
     </form>
@@ -143,4 +144,10 @@ const StyledInput = styled.div`
   display: flex;
   flex-direction: column;
   text-align: center;
+`;
+
+const StyledButton = styled.button`
+  width: 5rem;
+  margin: 0 auto;
+  padding: 0.5rem;
 `;

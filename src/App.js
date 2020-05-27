@@ -10,7 +10,7 @@ import Recommendations from "./components/Recommendations";
 import StrainList from "./components/StrainList/";
 
 const StyledApp = styled.div`
-  padding: 150px;
+  background: #eaf5df;
 `;
 
 function App(props) {
