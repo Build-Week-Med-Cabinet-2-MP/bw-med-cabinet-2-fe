@@ -131,9 +131,11 @@ const Signup = (props) => {
               onChange={onInputChange}
             />
           </label>
-          <button className="signup" disabled={disabled}>
-            Signup
-          </button>
+          <StyledButton>
+            <button className="signup" disabled={disabled}>
+              Signup
+            </button>
+          </StyledButton>
         </StyledInput>
       </div>
     </form>
@@ -156,4 +158,10 @@ const StyledInput = styled.div`
   display: flex;
   flex-direction: column;
   text-align: center;
+`;
+
+const StyledButton = styled.button`
+  width: 5rem;
+  margin: 0 auto;
+  padding: 0.5rem;
 `;

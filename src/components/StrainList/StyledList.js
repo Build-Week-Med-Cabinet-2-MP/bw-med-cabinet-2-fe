@@ -1,7 +1,11 @@
 import styled from "styled-components";
 
 const StyledList = styled.div`
-  /* strain list styles */
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  background: #eaf5df;
+  align-content: flex-start;
 `;
 
 export default StyledList;
