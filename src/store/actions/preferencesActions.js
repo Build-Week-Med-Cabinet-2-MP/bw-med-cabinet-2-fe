@@ -30,7 +30,7 @@ export const submitPrefs = (prefs) => (dispatch) => {
   dispatch({ type: SUBMIT_PREFS_START });
   //Here, we update data in database
   // axiosWithAuth()
-  //   .post(`APIURL`, prefs)
+  //   .post(`/api/prefs`, prefs)
   //   .then((res) => {
       dispatch({ type: SUBMIT_PREFS_SUCCESS });
     // })
