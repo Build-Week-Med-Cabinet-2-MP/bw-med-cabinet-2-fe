@@ -12,6 +12,17 @@ body,
 #root {
   min-height: 100vh;
   width: 100%;
+  background: #eaf5df;
+}
+
+a {
+  text-decoration: none;
+  color: black;
+}
+
+a:hover {
+  text-decoration: none;
+  color: #eaf5df;
 }
 
 /* Font imports here */
