@@ -1,9 +1,9 @@
 import { signup } from "../actions";
 const {
-  SIGNUP_START,
-  SIGNUP_SUCCESS,
-  SIGNUP_FAILURE,
-  STORE_SIGNUP_INFO,
+  SET_PREFS_START,
+  SET_PREFS_SUCCESS,
+  SET_PREFS_FAILURE,
+  STORE_SET_PREFS_INFO,
   TOGGLE_LOCATION_PERMISSION,
   TOGGLE_FLAVOR,
   TOGGLE_EFFECT,
@@ -13,34 +13,29 @@ const initialState = {
     flavors: false,
     effects: false,
   },
-  signupInfo: {
-    name: "",
-    password: "",
-    email: "",
-  },
   flavors: [],
   effects: [],
   locationAccessAllowed: false,
   location: null,
+  isFetching: false,
 };
 export const reducer = (state = initialState, action) => {
   switch (action.type) {
-    case SIGNUP_START:
+    case SET_PREFS_START:
       return {
         ...state,
+        isFetching: true,
       };
-    case SIGNUP_SUCCESS:
+    case SET_PREFS_SUCCESS:
       return {
         ...state,
+        isFetching: false,
+        
       };
-    case SIGNUP_FAILURE:
+    case SET_PREFS_FAILURE:
       return {
         ...state,
-      };
-    case STORE_SIGNUP_INFO:
-      return {
-        ...state,
-        signupInfo: action.payload,
+        isFetching: false,
       };
     case TOGGLE_LOCATION_PERMISSION:
       return {

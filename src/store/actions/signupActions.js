@@ -1,22 +1,55 @@
-export const SIGNUP_START = "SIGNUP_START";
-export const SIGNUP_SUCCESS = "SIGNUP_SUCCESS";
-export const SIGNUP_FAILURE = "SIGNUP_FAILURE";
-export const signup = (userInfo) => (dispatch) => {
-  dispatch({ type: SIGNUP_START });
-  //Here, we update data in database
-  // axiosWithAuth()
-  //   .post(`/api/register`, userInfo)
-  //   .then((res) => {
-  dispatch({ type: SIGNUP_SUCCESS });
-  // })
-  // .catch((err) => {
-  //   dispatch({ type: SIGNUP_FAILURE });
-  // });
-};
+import { axiosWithAuth } from "../../utils";
+import { dummyStrains } from "../../data";
 
-export const STORE_SIGNUP_INFO = "STORE_SIGNUP_INFO";
-export const storeSignupInfo = (signupInfo) => (dispatch) => {
-  dispatch({ type: STORE_SIGNUP_INFO, payload: signupInfo });
+export const SET_PREFS_START = "SET_PREFS_START";
+export const SET_PREFS_SUCCESS = "SET_PREFS_SUCCESS";
+export const SET_PREFS_FAILURE = "SET_PREFS_FAILURE";
+export const setPrefs = (prefs) => (dispatch) => {
+  const { id } = prefs;
+  const effects = {
+    user_id: id,
+    effects: prefs.effects,
+  };
+  const flavors = {
+    user_id: id,
+    flavors: prefs.flavors,
+  };
+  dispatch({ type: SET_PREFS_START });
+  setTimeout(() => {
+    dispatch({
+      type: SET_PREFS_SUCCESS,
+      payload: [dummyStrains[0], dummyStrains[1], dummyStrains[2]],
+    });
+  }, 3000);
+
+  //Here, we update data in database
+  // return axiosWithAuth()
+  //   .post(`/api/user/${id}/flavors`, flavors)
+  //   .then((res) => {
+  //     console.log("FLAVORS:", res);
+
+  //     axiosWithAuth()
+  //       .post(`/api/user/${id}/effects`, effects)
+  //       .then((res) => {
+  //         console.log("EFFECTS:", res);
+
+  //         axiosWithAuth()
+  //           .get(`/api/user/${id}/recommendations`)
+  //           .then((res) => {
+  //             console.log("RECS:", res);
+  //             dispatch({ type: SET_PREFS_SUCCESS, payload: res.data });
+  //           })
+  //           .catch((err) => {
+  //             console.log("Error getting recs");
+  //           });
+  //       })
+  //       .catch((err) => {
+  //         console.log("Error setting effects");
+  //       });
+  //   })
+  //   .catch((err) => {
+  //     console.log("error setting flavors");
+  //   });
 };
 
 export const TOGGLE_FLAVOR = "TOGGLE_FLAVOR";
@@ -37,8 +70,8 @@ export const toggleLocationPermission = (e) => (dispatch) => {
   let location = null;
   //If user allows location to be stored
   if (e.target.checked) {
-    location = "test location";
     //Get location data here
+    location = "test location";
   } //Otherwise location remains null
   //Store info in state
   dispatch({ type: TOGGLE_LOCATION_PERMISSION, payload: location });

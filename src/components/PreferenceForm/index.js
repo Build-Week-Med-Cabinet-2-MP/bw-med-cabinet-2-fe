@@ -9,13 +9,16 @@ import { flavors, effects } from "../../data";
 class PreferenceForm extends React.Component {
   submitHandler = (e) => {
     e.preventDefault();
-    const { effects, flavors, signupInfo } = this.props;
-    const userInfo = { effects, flavors, signupInfo };
+    const effects = this.props.effects.join(", ");
+    const flavors = this.props.flavors.join(", ");
+    const prefs = { effects, flavors, id: this.props.id };
     /**
      * FIGURE OUT HOW HE WANTS THE DATA STRUCTURED FOR THE POST
      */
-    this.props.signup(userInfo);
-    this.props.history.push("/login");
+    // this.props.setPrefs(prefs).then(() => {
+    // });
+    this.props.setPrefs(prefs);
+    this.props.history.push("/recommended");
   };
 
   render() {
@@ -80,12 +83,12 @@ class PreferenceForm extends React.Component {
 const mapStateToProps = (state) => {
   const p = state.signup;
   return {
-    signupInfo: p.signupInfo,
     location: p.location,
     permission: p.locationAccessAllowed,
     flavors: p.flavors,
     effects: p.effects,
     errors: p.errors,
+    id: state.user.id,
   };
 };
 
@@ -93,5 +96,5 @@ export default connect(mapStateToProps, {
   toggleLocationPermission: signup.toggleLocationPermission,
   toggleFlavor: signup.toggleFlavor,
   toggleEffect: signup.toggleEffect,
-  signup: signup.signup,
+  setPrefs: signup.setPrefs,
 })(PreferenceForm);
