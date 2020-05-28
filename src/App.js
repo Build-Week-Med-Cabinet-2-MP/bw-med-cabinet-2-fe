@@ -1,23 +1,21 @@
 import React from "react";
 import styled from "styled-components";
-import { connect } from "react-redux";
 import { Switch, Route } from "react-router-dom";
 import Login from "./components/Login";
+import LoginRedirect from "./components/Login/LoginRedirect";
 import Signup from "./components/Signup";
-import Popup from "./components/Popup";
 import PreferenceForm from "./components/PreferenceForm";
 import Recommendations from "./components/Recommendations";
 import StrainList from "./components/StrainList/";
 
 const StyledApp = styled.div`
   background: #eaf5df;
+  min-height: 100vh;
 `;
 
 function App(props) {
-  const { isPopped } = props;
   return (
     <StyledApp className="App">
-      {isPopped && <Popup />}
       <Switch>
         <Route exact path="/" component={Login} />
         <Route path="/login" component={Login} />
@@ -25,15 +23,10 @@ function App(props) {
         <Route path="/preferences" component={PreferenceForm} />
         <Route path="/recommended" component={Recommendations} />
         <Route path="/strains" component={StrainList} />
+        <Route path="/redirect" component={LoginRedirect} />
       </Switch>
     </StyledApp>
   );
 }
 
-const mapStateToProps = (state) => {
-  return {
-    isPopped: state.popup.isPopped,
-  };
-};
-
-export default connect(mapStateToProps, {})(App);
+export default App;

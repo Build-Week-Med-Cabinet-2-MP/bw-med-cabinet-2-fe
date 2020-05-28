@@ -2,8 +2,10 @@ import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import formSchema from "./formSchema";
 import * as yup from "yup";
-import axios from "axios";
-import { Link } from "react-router-dom";
+import { axiosWithAuth, setToken } from "../../utils";
+import { Link, useHistory } from "react-router-dom";
+import { connect } from "react-redux";
+import { user } from "../../store/actions";
 
 const initialLoginFormValues = {
   name: "",
@@ -18,6 +20,7 @@ const initialLoginFormErrors = {
 const initialDisabled = true;
 
 const Login = (props) => {
+  const { push } = useHistory();
   const [formValues, setFormValues] = useState(initialLoginFormValues);
   const [formErrors, setFormErrors] = useState(initialLoginFormErrors);
   const [disabled, setDisabled] = useState(initialDisabled);
@@ -45,25 +48,28 @@ const Login = (props) => {
     setFormValues({ ...formValues, [name]: value });
   };
 
-  const postLoginData = (loginData) => {
-    axios
-      .post("", loginData)
+  const onSubmit = (e) => {
+    e.preventDefault();
+    const loginData = {
+      username: formValues.name,
+      password: formValues.password,
+    };
+    axiosWithAuth()
+      .post("/api/login", loginData)
       .then((res) => {
-        console.log(res.data);
+        /**
+         * Set the token, set the ID and username into state
+         */
+        setToken(res.data.token);
+        props.setID(res.data.id);
+        push("/redirect")
       })
-      .catch((error) => {
-        console.error("Server Error", error);
-      })
-      .finally(() => {
-        setFormValues(initialLoginFormValues);
-        console.log(loginData);
+      .catch((err) => {
+        setFormErrors({
+          ...formErrors,
+          name: "Login failed. Please try again",
+        });
       });
-  };
-
-  const onSubmit = (event) => {
-    event.preventDefault();
-    const userLogin = { ...formValues };
-    postLoginData(userLogin);
   };
 
   useEffect(() => {
@@ -123,7 +129,9 @@ const Login = (props) => {
   );
 };
 
-export default Login;
+export default connect(null, {
+  setID: user.setID,
+})(Login);
 
 const StyledLogin = styled.div`
   background: #059033;

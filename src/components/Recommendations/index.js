@@ -1,29 +1,29 @@
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
-import { rec } from "../../store/actions";
 
 const Recommendations = (props) => {
-  const { test, isFetching, fetchRec } = props;
-  useEffect(() => {
-    fetchRec();
-  }, [fetchRec]);
+  const { isFetching, recs } = props;
   return (
     <div>
-      {isFetching 
-        ? <h2>Loading...</h2>
-        : <h2>{test}</h2>
-        }
+      {isFetching && <h2>Loading...</h2>}
+      {recs
+        ? recs.map((x) => {
+            return (
+              <div>
+                <h2>{x.name}</h2>
+              </div>
+            );
+          })
+        : "No strains to display"}
     </div>
   );
 };
 
 const mapStateToProps = (state) => {
   return {
-    test: state.rec.test,
-    isFetching: state.rec.isFetching
+    isFetching: state.signup.isFetching,
+    recs: state.user.recommendations,
   };
 };
 
-export default connect(mapStateToProps, {
-  fetchRec: rec.fetchRec,
-})(Recommendations);
+export default connect(mapStateToProps, {})(Recommendations);
