@@ -8,24 +8,19 @@ export const FETCH_STRAINS_FAILURE = "FETCH_STRAINS_FAILURE";
 export const fetchStrains = () => (dispatch) => {
   dispatch({ type: FETCH_STRAINS_START });
 
-  setTimeout(() => {
-    dispatch({ type: FETCH_STRAINS_SUCCESS, payload: dummyStrains });
-  }, 300);
+  // setTimeout(() => {
+  //   dispatch({ type: FETCH_STRAINS_SUCCESS, payload: dummyStrains });
+  // }, 300);
 
-  //put these in axios request
-  //on success:
-  //on failure:
-  // dispatch({ type: FETCH_STRAINS_FAILURE, payload: err });
-
-  // axios
-  //   .get("https://cors-anywhere.herokuapp.com/https://weed-data-bw.herokuapp.com/web_layout_strains")
-  //   .then((res) => {
-  //     console.log("res-->", res);
-  //     dispatch({ type: FETCH_STRAINS_SUCCESS, payload: res.data });
-  //   })
-  //   .catch((err) => {
-  //     dispatch({ type: FETCH_STRAINS_FAILURE, payload: err });
-  //   });
-
-  //axios request here
+  axios
+    .get(
+      "https://cors-anywhere.herokuapp.com/https://weed-data-bw.herokuapp.com/web_layout_strains"
+    )
+    .then((res) => {
+      console.log("res-->", res);
+      dispatch({ type: FETCH_STRAINS_SUCCESS, payload: res.data });
+    })
+    .catch((err) => {
+      dispatch({ type: FETCH_STRAINS_FAILURE, payload: err });
+    });
 };

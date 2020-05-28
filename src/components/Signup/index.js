@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useParams } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { Link, useHistory } from "react-router-dom";
 import formSchema from "./formSchema";
@@ -73,12 +73,9 @@ const Signup = (props) => {
     <form onSubmit={onSubmit}>
       <div>
         <StyledSignup>
-          <Link to="/signup">
-            <h1>Signup</h1>
-          </Link>
-          <Link to="/">
+          <a href="https://med-cabinet-2.netlify.app/">
             <h1>Home</h1>
-          </Link>
+          </a>
           <Link to="/login">
             <h1>Login</h1>
           </Link>
@@ -139,11 +136,12 @@ export default connect(null, {
 })(Signup);
 
 const StyledSignup = styled.div`
-  background: #355a20;
+  background: #059033;
+  color: black;
+  text-decoration-line: none;
   padding: 1rem;
   display: flex;
   justify-content: space-evenly;
-  text-decoration: none;
 `;
 
 const StyledInput = styled.div`

@@ -1,7 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { connect } from "react-redux";
+import styled from "styled-components";
 import StyledList from "./StyledList";
 import StrainCard from "./StrainCard";
+import Header from "../Header/header.js";
 
 import { strains } from "../../store/actions";
 
@@ -15,7 +17,7 @@ const StrainList = (props) => {
   }, []);
   return (
     <StyledList>
-      <h1>Strain List</h1>
+      <Header />
       <div>
         {isFetching ? (
           "loading..."
