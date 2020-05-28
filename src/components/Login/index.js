@@ -117,10 +117,8 @@ const Login = (props) => {
               onChange={onInputChange}
             />
           </label>
-          <StyledButton>
-            <button className="login" disabled={disabled}>
-              Login
-            </button>
+          <StyledButton className="login" disabled={disabled}>
+            Login
           </StyledButton>
         </StyledInput>
       </div>

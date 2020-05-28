@@ -52,7 +52,7 @@ const Signup = (props) => {
 
   const postLoginData = (signupData) => {
     props.storeSignupInfo(signupData);
-    props.push("/preferences");
+    push("/preferences");
   };
 
   const onSubmit = (event) => {
@@ -125,10 +125,8 @@ const Signup = (props) => {
               onChange={onInputChange}
             />
           </label>
-          <StyledButton>
-            <button className="signup" disabled={disabled}>
-              Signup
-            </button>
+          <StyledButton className="signup" disabled={disabled}>
+            Sign Up
           </StyledButton>
         </StyledInput>
       </div>
