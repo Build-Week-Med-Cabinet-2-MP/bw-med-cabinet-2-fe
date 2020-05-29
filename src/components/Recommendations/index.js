@@ -1,9 +1,11 @@
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
-import Visualization from "../Visualization";
 import Header from "../Header/header";
+import RecCard from "./RecCard";
+import StyledList from "./StyledList";
 import { strains, visual } from "../../store/actions";
+import RecSplash from "./RecSplash";
 
 const Recommendations = (props) => {
   const {
@@ -28,25 +30,23 @@ const Recommendations = (props) => {
   }, [strainList, recs, fetchStrains]);
 
   return (
-    <div>
+    <StyledList>
       <Header />
-      {isFetching && <h2>Loading...</h2>}
-      {fullRecObj
-        ? fullRecObj.map((x, index) => {
-            return (
-              <div key={index}>
-                <h2>{x.name}</h2>
+      {isFetching && <h2 className="loading">Loading...</h2>}
+      <div className="container">
+        {fullRecObj
+          ? fullRecObj.map((x, index) => {
+              return <RecCard key={index} rec={x} />;
+            })
+          : !isFetching && (
+              <div>
+                No strains to display. <Link to="/preferences">Click Here</Link>{" "}
+                to set preferences
               </div>
-            );
-          })
-        : !isFetching && (
-            <div>
-              No strains to display. <Link to="/preferences">Click Here</Link>{" "}
-              to set preferences
-            </div>
-          )}
-      {fullRecObj && <Visualization strain={fullRecObj[curIndex]} />}
-    </div>
+            )}
+      </div>
+      {fullRecObj && <RecSplash rec={fullRecObj[curIndex]} />}
+    </StyledList>
   );
 };
 

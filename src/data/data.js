@@ -93,3 +93,4 @@ export const dummyStrains = [
     effects: ["Aroused", "Giggly", "Relaxed"],
   },
 ];
+export const img = [require("./img/weed01.png"), require("./img/weed02.png")];
