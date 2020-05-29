@@ -4,5 +4,13 @@ import { reducer as popup } from "./popupReducer";
 import { reducer as signup } from "./signupReducer";
 import { reducer as user } from "./userReducer";
 import { reducer as visual } from "./visualReducer";
+import { reducer as settings } from "./settingsReducers";
 
-export default combineReducers({ strains, popup, signup, user, visual });
+export default combineReducers({
+  strains,
+  popup,
+  signup,
+  user,
+  visual,
+  settings,
+});

@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import { Redirect, Link } from "react-router-dom";
+import Header from "../../Header/header";
 import { user } from "../../../store/actions";
 
 const LoginRedirect = (props) => {
@@ -12,6 +13,7 @@ const LoginRedirect = (props) => {
 
   return (
     <div>
+      <Header />
       {isFetching && "Loading..."}
       {!isFetching && !recs && (
         <div>
