@@ -26,7 +26,8 @@ class Visualization extends React.Component {
   };
   render() {
     return (
-      <Plot data={curData} layout={{ margin: { l: 0, r: 0, b: 0, t: 0 } }} />
+      <div></div>
+      // <Plot data={this.state.curData} layout={{ margin: { l: 0, r: 0, b: 0, t: 0 } }} />
     );
   }
 }
