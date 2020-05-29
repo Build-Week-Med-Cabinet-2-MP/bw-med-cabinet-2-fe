@@ -25,14 +25,14 @@ const Header = () => {
   `;
   return (
     <StyledHeader>
-      <a href="https://med-cabinet-2.netlify.app/">
-        <h1>Home</h1>
-      </a>
       <Link to="/strains">
         <h1>Strain List</h1>
       </Link>
-      <Link to="/recommendations">
+      <Link to="/recommended">
         <h1>Recommendations</h1>
+      </Link>
+      <Link to="/settings">
+        <h1>Settings</h1>
       </Link>
       <StyledLogout>Log out</StyledLogout>
     </StyledHeader>

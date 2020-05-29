@@ -1,10 +1,12 @@
 import React from "react";
 import { connect } from "react-redux";
 import { signup } from "../../store/actions";
+import styled from "styled-components";
 import Location from "./Location";
 import Flavor from "./Flavor";
 import Effect from "./Effect";
 import { flavors, effects } from "../../data";
+import Header from "../Header/header.js";
 
 class PreferenceForm extends React.Component {
   submitHandler = (e) => {
@@ -24,9 +26,12 @@ class PreferenceForm extends React.Component {
   render() {
     return (
       <div>
-        <h2>Preferences</h2>
+        <Header />
+        <StyledTitle>
+          <h2>Preferences</h2>
+        </StyledTitle>
         <form onSubmit={this.submitHandler}>
-          <div>
+          <StyledInput>
             <label>
               <input
                 type="checkbox"
@@ -40,40 +45,58 @@ class PreferenceForm extends React.Component {
             {this.props.permission && (
               <Location location={this.props.location} />
             )}
-          </div>
+          </StyledInput>
           <div>
-            <h2>Flavors</h2>
-            <h3 style={{ color: this.props.errors.flavors ? "red" : "black" }}>
-              Choose up to 3:
-            </h3>
+            <StyledTitle>
+              <h2>Flavors</h2>
+              <h3
+                style={{ color: this.props.errors.flavors ? "red" : "black" }}
+              >
+                Choose up to 3:
+              </h3>
+            </StyledTitle>
             <div>
-              {flavors.map((x, index) => {
-                return (
-                  <Flavor
-                    key={index}
-                    flavor={x}
-                    checked={this.props.flavors.includes(x) ? true : false}
-                    checkHandler={this.props.toggleFlavor}
-                  />
-                );
-              })}
+              <StyledPreference>
+                {flavors.map((x, index) => {
+                  return (
+                    <StyledCheckbox>
+                      <Flavor
+                        key={index}
+                        flavor={x}
+                        checked={this.props.flavors.includes(x) ? true : false}
+                        checkHandler={this.props.toggleFlavor}
+                      />
+                    </StyledCheckbox>
+                  );
+                })}
+              </StyledPreference>
             </div>
           </div>
           <div>
-            <h2>Effects</h2>
-            <h3 style={{ color: this.props.errors.effects ? "red" : "black" }}>
-              Choose up to 3:
-            </h3>
-            {effects.map((x, index) => (
-              <Effect
-                key={index}
-                effect={x}
-                checked={this.props.effects.includes(x) ? true : false}
-                checkHandler={this.props.toggleEffect}
-              />
-            ))}
+            <StyledTitle>
+              <h2>Effects</h2>
+              <h3
+                style={{ color: this.props.errors.effects ? "red" : "black" }}
+              >
+                Choose up to 3:
+              </h3>
+            </StyledTitle>
+            <StyledPreference>
+              {effects.map((x, index) => (
+                <StyledCheckbox>
+                  <Effect
+                    key={index}
+                    effect={x}
+                    checked={this.props.effects.includes(x) ? true : false}
+                    checkHandler={this.props.toggleEffect}
+                  />
+                </StyledCheckbox>
+              ))}
+            </StyledPreference>
           </div>
-          <input type="submit" value="Submit" />
+          <StyledInput>
+            <input type="submit" value="Submit" />
+          </StyledInput>
         </form>
       </div>
     );
@@ -98,3 +121,26 @@ export default connect(mapStateToProps, {
   toggleEffect: signup.toggleEffect,
   setPrefs: signup.setPrefs,
 })(PreferenceForm);
+
+const StyledPreference = styled.div`
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-evenly;
+  margin: 0 auto;
+  max-width: 800px;
+`;
+
+const StyledTitle = styled.div`
+  text-align: center;
+  padding: 1rem;
+`;
+
+const StyledInput = styled.div`
+  text-align: center;
+  padding: 1rem;
+`;
+
+const StyledCheckbox = styled.div`
+  margin: 0 0.5rem;
+  width: 15%;
+`;
