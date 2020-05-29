@@ -13,7 +13,7 @@ const StrainList = (props) => {
    */
   const { isFetching, strainList, fetchStrains } = props;
   useEffect(() => {
-    fetchStrains();
+    if (!strainList) fetchStrains();
   }, []);
   return (
     <StyledList>
@@ -23,9 +23,10 @@ const StrainList = (props) => {
           "loading..."
         ) : (
           <>
-            {strainList.map((strain) => {
-              return <StrainCard strain={strain} />;
-            })}
+            {strainList &&
+              strainList.map((strain) => {
+                return <StrainCard strain={strain} />;
+              })}
           </>
         )}
       </div>

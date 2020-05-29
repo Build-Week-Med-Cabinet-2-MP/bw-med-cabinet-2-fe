@@ -1,55 +1,44 @@
+import axios from "axios";
 import { axiosWithAuth } from "../../utils";
 import { dummyStrains } from "../../data";
 
 export const SET_PREFS_START = "SET_PREFS_START";
 export const SET_PREFS_SUCCESS = "SET_PREFS_SUCCESS";
 export const SET_PREFS_FAILURE = "SET_PREFS_FAILURE";
-export const setPrefs = (prefs) => (dispatch) => {
-  const { id } = prefs;
-  const effects = {
-    user_id: id,
-    effects: prefs.effects,
-  };
-  const flavors = {
-    user_id: id,
-    flavors: prefs.flavors,
-  };
+export const setPrefs = (req) => (dispatch) => {
+  const { id, prefs } = req;
   dispatch({ type: SET_PREFS_START });
-  setTimeout(() => {
-    dispatch({
-      type: SET_PREFS_SUCCESS,
-      payload: [dummyStrains[0], dummyStrains[1], dummyStrains[2]],
-    });
-  }, 3000);
-
-  //Here, we update data in database
-  // return axiosWithAuth()
-  //   .post(`/api/user/${id}/flavors`, flavors)
-  //   .then((res) => {
-  //     console.log("FLAVORS:", res);
-
-  //     axiosWithAuth()
-  //       .post(`/api/user/${id}/effects`, effects)
-  //       .then((res) => {
-  //         console.log("EFFECTS:", res);
-
-  //         axiosWithAuth()
-  //           .get(`/api/user/${id}/recommendations`)
-  //           .then((res) => {
-  //             console.log("RECS:", res);
-  //             dispatch({ type: SET_PREFS_SUCCESS, payload: res.data });
-  //           })
-  //           .catch((err) => {
-  //             console.log("Error getting recs");
-  //           });
-  //       })
-  //       .catch((err) => {
-  //         console.log("Error setting effects");
-  //       });
-  //   })
-  //   .catch((err) => {
-  //     console.log("error setting flavors");
+  // setTimeout(() => {
+  //   dispatch({
+  //     type: SET_PREFS_SUCCESS,
+  //     payload: [dummyStrains[0], dummyStrains[1], dummyStrains[2]],
   //   });
+  // }, 3000);
+
+  // Here, we update data in database
+  return axios
+    .post(
+      `https://cors-anywhere.herokuapp.com/https://weed-data-bw.herokuapp.com/model`,
+      prefs
+    )
+    .then((res) => {
+      const name = res.data.map((x) => x.name);
+      const req = { recommendations: name.join(", ") };
+
+      axiosWithAuth()
+        .put(`/api/user/${id}`, req)
+        .then((res) => {
+          console.log(res);
+          dispatch({ type: SET_PREFS_SUCCESS, payload: req.recommendations });
+        })
+        .catch((err) => {
+          console.log("error posting recs");
+          dispatch({ type: SET_PREFS_FAILURE, payload: err });
+        });
+    })
+    .catch((err) => {
+      console.log("error getting model data");
+    });
 };
 
 export const TOGGLE_FLAVOR = "TOGGLE_FLAVOR";
