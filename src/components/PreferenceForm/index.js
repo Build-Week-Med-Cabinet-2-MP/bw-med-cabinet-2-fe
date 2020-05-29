@@ -6,101 +6,94 @@ import Location from "./Location";
 import Flavor from "./Flavor";
 import Effect from "./Effect";
 import { flavors, effects } from "../../data";
-import Header from "../Header/header.js";
+import Header from "../Header/header";
+import { useHistory } from "react-router-dom";
 
-class PreferenceForm extends React.Component {
-  submitHandler = (e) => {
+const PreferenceForm = (props) => {
+  const { push } = useHistory();
+  const submitHandler = (e) => {
     e.preventDefault();
     const req = {
-      id: this.props.id,
-      prefs: { Flavors: this.props.flavors, Effects: this.props.effects },
+      id: props.id,
+      prefs: { Flavors: props.flavors, Effects: props.effects },
     };
     /**
      * FIGURE OUT HOW HE WANTS THE DATA STRUCTURED FOR THE POST
      */
-    this.props.setPrefs(req);
-    this.props.history.push("/recommended");
+    props.setPrefs(req);
+    push("/recommended");
   };
-
-  render() {
-    return (
-      <div>
-        <Header />
-        <StyledTitle>
-          <h2>Preferences</h2>
-        </StyledTitle>
-        <form onSubmit={this.submitHandler}>
-          <StyledInput>
-            <label>
-              <input
-                type="checkbox"
-                name="locationAccess"
-                checked={this.props.permission}
-                onChange={this.props.toggleLocationPermission}
-              />
-              &nbsp;I would like MedCabinet to use my location to recommend
-              nearby dispensaries
-            </label>
-            {this.props.permission && (
-              <Location location={this.props.location} />
-            )}
-          </StyledInput>
+  return (
+    <div>
+      <Header />
+      <StyledTitle>
+        <h2>Preferences</h2>
+      </StyledTitle>
+      <form onSubmit={submitHandler}>
+        <StyledInput>
+          <label>
+            <input
+              type="checkbox"
+              name="locationAccess"
+              checked={props.permission}
+              onChange={props.toggleLocationPermission}
+            />
+            &nbsp;I would like MedCabinet to use my location to recommend nearby
+            dispensaries
+          </label>
+          {props.permission && <Location location={props.location} />}
+        </StyledInput>
+        <div>
+          <StyledTitle>
+            <h2>Flavors</h2>
+            <h3 style={{ color: props.errors.flavors ? "red" : "black" }}>
+              Choose up to 3:
+            </h3>
+          </StyledTitle>
           <div>
-            <StyledTitle>
-              <h2>Flavors</h2>
-              <h3
-                style={{ color: this.props.errors.flavors ? "red" : "black" }}
-              >
-                Choose up to 3:
-              </h3>
-            </StyledTitle>
-            <div>
-              <StyledPreference>
-                {flavors.map((x, index) => {
-                  return (
-                    <StyledCheckbox>
-                      <Flavor
-                        key={index}
-                        flavor={x}
-                        checked={this.props.flavors.includes(x) ? true : false}
-                        checkHandler={this.props.toggleFlavor}
-                      />
-                    </StyledCheckbox>
-                  );
-                })}
-              </StyledPreference>
-            </div>
-          </div>
-          <div>
-            <StyledTitle>
-              <h2>Effects</h2>
-              <h3
-                style={{ color: this.props.errors.effects ? "red" : "black" }}
-              >
-                Choose up to 3:
-              </h3>
-            </StyledTitle>
             <StyledPreference>
-              {effects.map((x, index) => (
-                <StyledCheckbox>
-                  <Effect
-                    key={index}
-                    effect={x}
-                    checked={this.props.effects.includes(x) ? true : false}
-                    checkHandler={this.props.toggleEffect}
-                  />
-                </StyledCheckbox>
-              ))}
+              {flavors.map((x, index) => {
+                return (
+                  <StyledCheckbox>
+                    <Flavor
+                      key={index}
+                      flavor={x}
+                      checked={props.flavors.includes(x) ? true : false}
+                      checkHandler={props.toggleFlavor}
+                    />
+                  </StyledCheckbox>
+                );
+              })}
             </StyledPreference>
           </div>
-          <StyledInput>
-            <input type="submit" value="Submit" />
-          </StyledInput>
-        </form>
-      </div>
-    );
-  }
-}
+        </div>
+        <div>
+          <StyledTitle>
+            <h2>Effects</h2>
+            <h3 style={{ color: props.errors.effects ? "red" : "black" }}>
+              Choose up to 3:
+            </h3>
+          </StyledTitle>
+          <StyledPreference>
+            {effects.map((x, index) => (
+              <StyledCheckbox>
+                <Effect
+                  key={index}
+                  effect={x}
+                  checked={props.effects.includes(x) ? true : false}
+                  checkHandler={props.toggleEffect}
+                />
+              </StyledCheckbox>
+            ))}
+          </StyledPreference>
+        </div>
+        <StyledInput>
+          <input type="submit" value="Submit" />
+        </StyledInput>
+      </form>
+    </div>
+  );
+};
 
 const mapStateToProps = (state) => {
   const p = state.signup;

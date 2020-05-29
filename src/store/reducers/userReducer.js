@@ -1,4 +1,4 @@
-import { user, signup } from "../actions";
+import { user, signup, settings } from "../actions";
 const {
   FETCH_USER_START,
   FETCH_USER_SUCCESS,
@@ -6,14 +6,22 @@ const {
   SET_ID,
 } = user;
 const { SET_PREFS_SUCCESS } = signup;
+const { UPDATE_INFO_SUCCESS } = settings;
 const initialState = {
   isFetching: false,
   id: null,
   username: null,
+  email: null,
   recommendations: null,
 };
 export const reducer = (state = initialState, action) => {
   switch (action.type) {
+    case UPDATE_INFO_SUCCESS:
+      return {
+        ...state,
+        username: action.payload.username,
+        email: action.payload.email,
+      };
     case FETCH_USER_START:
       return {
         ...state,
@@ -23,6 +31,7 @@ export const reducer = (state = initialState, action) => {
         ...state,
         username: action.payload.username,
         recommendations: action.payload.recommendations,
+        email: action.payload.email,
       };
     case FETCH_USER_FAILURE:
       return {
