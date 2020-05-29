@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import styled from "styled-components";
 import StyledList from "./StyledList";
 import StrainCard from "./StrainCard";
-import Header from "../Header/header.js";
+import Header from "../Header/header";
 
 import { strains } from "../../store/actions";
 

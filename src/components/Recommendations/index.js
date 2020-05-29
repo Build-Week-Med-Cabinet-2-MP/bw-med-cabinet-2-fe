@@ -1,6 +1,8 @@
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
+import { Link } from "react-router-dom";
 import Visualization from "../Visualization";
+import Header from "../Header/header";
 import { strains, visual } from "../../store/actions";
 
 const Recommendations = (props) => {
@@ -27,6 +29,7 @@ const Recommendations = (props) => {
 
   return (
     <div>
+      <Header />
       {isFetching && <h2>Loading...</h2>}
       {fullRecObj
         ? fullRecObj.map((x, index) => {
@@ -36,7 +39,12 @@ const Recommendations = (props) => {
               </div>
             );
           })
-        : !isFetching && <div>No strains to display</div>}
+        : !isFetching && (
+            <div>
+              No strains to display. <Link to="/preferences">Click Here</Link>{" "}
+              to set preferences
+            </div>
+          )}
       {fullRecObj && <Visualization strain={fullRecObj[curIndex]} />}
     </div>
   );

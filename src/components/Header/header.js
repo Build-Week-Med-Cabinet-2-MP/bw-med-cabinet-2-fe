@@ -1,13 +1,19 @@
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import React from "react";
 import styled from "styled-components";
+import { connect } from "react-redux";
+import { settings } from "../../store/actions";
 
-const Header = () => {
+const Header = (props) => {
+  const { signOut } = props;
   const StyledHeader = styled.div`
     background: #059033;
     padding: 1rem;
     display: flex;
     justify-content: space-evenly;
+    .active {
+      color: white;
+    }
   `;
 
   const StyledLogout = styled.button`
@@ -23,20 +29,29 @@ const Header = () => {
       color: #059033;
     }
   `;
+
+  const logoutHandler = (e) => {
+    e.preventDefault();
+    signOut();
+    window.location.reload();
+  };
+
   return (
     <StyledHeader>
-      <Link to="/strains">
+      <NavLink to="/strains">
         <h1>Strain List</h1>
-      </Link>
-      <Link to="/recommended">
+      </NavLink>
+      <NavLink to="/recommended">
         <h1>Recommendations</h1>
-      </Link>
-      <Link to="/settings">
+      </NavLink>
+      <NavLink to="/settings">
         <h1>Settings</h1>
-      </Link>
-      <StyledLogout>Log out</StyledLogout>
+      </NavLink>
+      <StyledLogout onClick={logoutHandler}>Log out</StyledLogout>
     </StyledHeader>
   );
 };
 
-export default Header;
+export default connect(null, {
+  signOut: settings.signOut,
+})(Header);

@@ -8,6 +8,7 @@ import Signup from "./components/Signup";
 import PreferenceForm from "./components/PreferenceForm";
 import Recommendations from "./components/Recommendations";
 import StrainList from "./components/StrainList/";
+import Settings from "./components/Settings";
 import { settings } from "./store/actions";
 import { connect } from "react-redux";
 
@@ -34,6 +35,7 @@ function App(props) {
         <PrivateRoute path="/recommended" component={Recommendations} />
         <PrivateRoute path="/strains" component={StrainList} />
         <PrivateRoute path="/redirect" component={LoginRedirect} />
+        <PrivateRoute path="/settings" component={Settings} />
       </Switch>
     </StyledApp>
   );
