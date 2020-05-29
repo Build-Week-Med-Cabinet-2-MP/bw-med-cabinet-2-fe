@@ -7,12 +7,27 @@ const {
 } = user;
 const { SET_PREFS_SUCCESS } = signup;
 const initialState = {
+  isFetching: false,
   id: null,
   username: null,
   recommendations: null,
 };
 export const reducer = (state = initialState, action) => {
   switch (action.type) {
+    case FETCH_USER_START:
+      return {
+        ...state,
+      };
+    case FETCH_USER_SUCCESS:
+      return {
+        ...state,
+        username: action.payload.username,
+        recommendations: action.payload.recommendations,
+      };
+    case FETCH_USER_FAILURE:
+      return {
+        ...state,
+      };
     case SET_ID:
       return {
         ...state,

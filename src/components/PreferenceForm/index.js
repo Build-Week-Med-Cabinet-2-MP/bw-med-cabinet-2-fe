@@ -11,15 +11,14 @@ import Header from "../Header/header.js";
 class PreferenceForm extends React.Component {
   submitHandler = (e) => {
     e.preventDefault();
-    const effects = this.props.effects.join(", ");
-    const flavors = this.props.flavors.join(", ");
-    const prefs = { effects, flavors, id: this.props.id };
+    const req = {
+      id: this.props.id,
+      prefs: { Flavors: this.props.flavors, Effects: this.props.effects },
+    };
     /**
      * FIGURE OUT HOW HE WANTS THE DATA STRUCTURED FOR THE POST
      */
-    // this.props.setPrefs(prefs).then(() => {
-    // });
-    this.props.setPrefs(prefs);
+    this.props.setPrefs(req);
     this.props.history.push("/recommended");
   };
 

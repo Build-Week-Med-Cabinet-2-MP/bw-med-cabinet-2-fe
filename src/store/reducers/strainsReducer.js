@@ -6,7 +6,7 @@ const {
 } = strains;
 const initialState = {
   isFetching: false,
-  strains: [],
+  strains: null,
   error: "",
 };
 export const reducer = (state = initialState, action) => {

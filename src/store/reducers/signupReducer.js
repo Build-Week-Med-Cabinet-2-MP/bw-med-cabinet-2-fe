@@ -30,7 +30,6 @@ export const reducer = (state = initialState, action) => {
       return {
         ...state,
         isFetching: false,
-        
       };
     case SET_PREFS_FAILURE:
       return {

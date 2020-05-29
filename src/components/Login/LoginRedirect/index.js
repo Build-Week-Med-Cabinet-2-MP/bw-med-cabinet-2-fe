@@ -1,29 +1,37 @@
-import React from "react";
-import { axiosWithAuth } from "../../../utils";
+import React, { useEffect } from "react";
 import { connect } from "react-redux";
-import { Redirect } from "react-router-dom";
+import { Redirect, Link } from "react-router-dom";
+import { user } from "../../../store/actions";
 
-class LoginRedirect extends React.Component {
-  componentDidMount() {
-    axiosWithAuth()
-      .get(`/api/user/${this.props.id}`)
-      .then((res) => {
-        console.log(res);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }
-  render() {
-    return this.props.recs ? <Redirect to="/recommended" /> : <Redirect to="/preferences" />;
-  }
-}
+const LoginRedirect = (props) => {
+  const { id, recs, isFetching, fetchUser } = props;
+
+  useEffect(() => {
+    fetchUser(id);
+  }, []);
+
+  return (
+    <div>
+      {isFetching && "Loading..."}
+      {!isFetching && !recs && (
+        <div>
+          <h2>Recommendations not set.</h2>
+          <Link to="/preferences">Set Preferences Here</Link>
+        </div>
+      )}
+      {recs && <Redirect to="/recommended" />}
+    </div>
+  );
+};
 
 const mapStateToProps = (state) => {
   return {
     id: state.user.id,
     recs: state.user.recommendations,
+    isFetching: state.user.isFetching,
   };
 };
 
-export default connect(mapStateToProps, {})(LoginRedirect);
+export default connect(mapStateToProps, {
+  fetchUser: user.fetchUser,
+})(LoginRedirect);
