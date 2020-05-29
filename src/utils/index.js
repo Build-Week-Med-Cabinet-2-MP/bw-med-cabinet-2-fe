@@ -1,4 +1,4 @@
-import { getToken, setToken } from "./tokenHelpers";
+import { getToken, setToken, clearToken } from "./tokenHelpers";
 import { axiosWithAuth } from "./axiosWithAuth";
 
-export { getToken, setToken, axiosWithAuth };
+export { getToken, setToken, clearToken, axiosWithAuth };

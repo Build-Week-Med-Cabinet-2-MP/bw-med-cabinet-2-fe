@@ -22,16 +22,16 @@ const Recommendations = (props) => {
 
   useEffect(() => {
     if (!strainList) fetchStrains();
-    if (strainList) getRecData();
-  }, [strainList, fetchStrains]);
+    if (strainList && recs) getRecData();
+  }, [strainList, recs, fetchStrains]);
 
   return (
     <div>
       {isFetching && <h2>Loading...</h2>}
       {fullRecObj
-        ? fullRecObj.map((x) => {
+        ? fullRecObj.map((x, index) => {
             return (
-              <div>
+              <div key={index}>
                 <h2>{x.name}</h2>
               </div>
             );
